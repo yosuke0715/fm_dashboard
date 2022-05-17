@@ -9,7 +9,7 @@ services:
   web:
     image: nginx:1.20-alpine
     ports:
-      - 8080:80
+      - 4040:80
     volumes:
       - ./src:/data
       - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -17,8 +17,38 @@ services:
 
   db:
     build: ./infra/mysql
+    image: mysql:5.7
+    container_name: fm_dashboard_db
     volumes:
         - db-store:/var/lib/mysql
+        - ./infra/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fm_dashboard
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_pass
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    ports:
+      - 8081:80
 
+  phpmyadmin:
+    # Docker Hubからイメージをダウンロード
+    image: phpmyadmin/phpmyadmin:5
+
+    # コンテナの名前
+    container_name: phpmyadmin_fm
+
+    # コンテナと他のサービスを繋げる
+    links:
+      - db
+
+    # localhost:8080 で phpmyadmin の管理画面にアクセス
+    ports:
+      - 8080:80
+
+    # セッション情報をボリュームに設定して永続化
+    volumes:
+      - ./infra/phpmyadmin/sessions:/sessions
 volumes:
   db-store:
