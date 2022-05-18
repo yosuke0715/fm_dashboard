@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app_admin')
 
 @section('content')
-    @include('nav.top_navbar')
-    <<!-- partial -->
+    @include('nav_admin.top_navbar')
+    <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
         <div class="theme-setting-wrapper">
@@ -23,7 +23,8 @@
                 </div>
             </div>
         </div>
-        <div id="right-sidebar" class="settings-panel"><i class="settings-close ti-close"></i>
+        <div id="right-sidebar" class="settings-panel">
+            <i class="settings-close ti-close"></i>
             <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
@@ -174,8 +175,8 @@
         </div>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        @include('nav.sidebar')
-        <!-- partial -->
+    @include('nav_admin.sidebar')
+    <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row mb-2">
@@ -189,59 +190,51 @@
                         </select>
                     </div>
                     <div class="col-2">
-                        <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">
+                        <select class="form-select form-select-sm" onChange="location.href=value;" aria-label="form-select-sm Default select example">
 
                             <option selected>絞り込み</option>
-                            <option value="1">〇のみ</option>
-                            <option value="2">△のみ</option>
-                            <option value="3">未達成のみ</option>
+                            @if(!is_null($categories))
+                            @foreach($categories as $category)
+                                <option value="{{'/admin/BSS-search/'.$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">種類</th>
-                        <th scope="col">レベル</th>
-                        <th scope="col">達成</th>
-                        <th scope="col">項目</th>
-                        <th scope="col">備考</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($BSS_data as $index => $BSS)
-                        <?php $index++; ?>
-                    <tr>
-                        <th scope="row">{{$index}}</th>
-                        <td>{{$BSS->name}}</td>
-                        <td>{{$BSS->level}}</td>
-                        <td>
-                            <select name="achievement" class="achievement">
-                                @if($BSS->achievement == "0" || $BSS->achievement == null)
-                                    <option value="{{$BSS->id}}/0" selected>未達成</option>
-                                    <option value="{{$BSS->id}}/1">わかる</option>
-                                    <option value="{{$BSS->id}}/2">説明できる</option>
-                                @elseif($BSS->achievement == "1")
-                                    <option value="{{$BSS->id}}/0">未達成</option>
-                                    <option value="{{$BSS->id}}/1" selected>わかる</option>
-                                    <option value="{{$BSS->id}}/2">説明できる</option>
-                                @elseif($BSS->achievement == "2")
-                                    <option value="{{$BSS->id}}/0">未達成</option>
-                                    <option value="{{$BSS->id}}/1">わかる</option>
-                                    <option value="{{$BSS->id}}/2" selected>説明できる</option>
-                                @endif
-                            </select>
-                        </td>
-                        <td>{{$BSS->title}}</td>
-                        <td>{{$BSS->note}}</td>
-                    </tr>
-                    @endforeach
-                    <input type="hidden" value="{{\Auth::id()}}" id="user_id">
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">種類</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">名前</th>
+                                <th scope="col">編集</th>
+                                <th scope="col">削除</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($BSS_data as $index => $BSS)
+                                <?php $index++; ?>
+                            <tr>
+                                <th scope="row">{{$index}}</th>
+                                <td>{{$BSS->name}}</td>
+                                <td>{{$BSS->level}}</td>
+                                <td>{{$BSS->title}}</td>
+                                <td>
+                                    <button class="BSS_edit_btn btn btn-success btn-sm" value="{{$BSS->id}}">編集</button>
+                                </td>
+                                <td>
+                                    <button class="BSS_del_btn btn btn-danger btn-sm" value="{{$BSS->id}}">削除</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->
 @endsection
-

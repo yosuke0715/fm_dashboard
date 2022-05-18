@@ -3,8 +3,8 @@
 @section('content')
     <nav class="navbar navbar-expand-md">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('img/logo.png') }}" alt="sharerecipi" style="width: 150px">
+            <a class="navbar-brand" href="{{ url('/home') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="BSS" style="width: 150px">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>

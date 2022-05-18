@@ -58,4 +58,20 @@ class LoginController extends Controller
 
         return redirect('/admin/login');
     }
+
+//    public function login(Request $request) {
+//
+//        $credentials = $request->only(['email', 'password']);
+//        $guard = $request->guard;
+//
+//        if(\Auth::guard($guard)->attempt($credentials)) {
+//
+//            return redirect($guard .'/admin/home'); // ログインしたらリダイレクト
+//
+//        }
+//
+//        return back()->withErrors([
+//            'auth' => ['認証に失敗しました']
+//        ]);
+//    }
 }

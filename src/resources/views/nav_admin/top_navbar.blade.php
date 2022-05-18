@@ -7,10 +7,10 @@
                 </button>
             </div>
             <div>
-                <a class="navbar-brand brand-logo" href="{{url('/home')}}">
+                <a class="navbar-brand brand-logo" href="{{url('/admin/home')}}">
                     <img src="{{asset('images/logo.png')}}" alt="logo" />
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="{{url('/home')}}">
+                <a class="navbar-brand brand-logo-mini" href="{{url('/admin/home')}}">
                     <img src="{{asset('images/logo-mini.svg')}}" alt="logo" />
                 </a>
             </div>
@@ -18,7 +18,7 @@
         <div class="navbar-menu-wrapper d-flex align-items-top">
             <ul class="navbar-nav">
                 <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                    <h1 class="welcome-text"><span class="text-black fw-bold">{{\Auth::user()->name}}</span></h1>
+                    <h1 class="welcome-text"><span class="text-black fw-bold">管理者画面</span></h1>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

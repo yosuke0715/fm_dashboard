@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('nav.top_navbar')
+    @include('nav_admin.top_navbar')
     <<!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
@@ -174,10 +174,10 @@
         </div>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        @include('nav.sidebar')
+        @include('nav_admin.sidebar')
         <!-- partial -->
         <div class="main-panel">
-            <div class="content-wrapper">
+            <div class="content-wrapper" style="overflow-x: scroll">
                 <div class="row mb-2">
                     <div class="col-2">
                         <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">

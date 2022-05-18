@@ -11,6 +11,14 @@ class BSS extends Model
 
     protected $table = "BSS";
 
+    protected $fillable = [
+        'category_id',
+        'title',
+        'level',
+        'note',
+        'deleted_at'
+    ];
+
     public function category(){
         return $this->belongsTo('App\Category')->withTimestamps();
     }

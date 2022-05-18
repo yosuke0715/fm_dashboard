@@ -8,7 +8,7 @@
         </li>
         <li class="nav-item nav-category">BSS</li>
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/bss')}}" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" href="{{url('/bss-view')}}" aria-expanded="false" aria-controls="ui-basic">
                 <i class="menu-icon mdi mdi-floor-plan"></i>
                 <span class="menu-title">BSS</span>
                 <i class="menu-arrow"></i>
