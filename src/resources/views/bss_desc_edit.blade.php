@@ -178,31 +178,17 @@
     <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-                <button type="button" class="btn btn-primary btn-sm sort_no" >未記入のみ表示</button>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col"></th>
-                        <th scope="col">種類</th>
-                        <th scope="col">タイトル</th>
-                        <th scope="col">解釈</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($BSS_data as $index => $BSS)
-                        <?php $index++; ?>
-                        <tr>
-                            <th scope="row">{{$index}}</th>
-                            <td><button class="btn btn-danger btn-sm add_desc" value="{{$BSS->id}}">記入</button></td>
-                            <td>{{$BSS->name}}</td>
-                            <td>{{$BSS->title}}</td>
-                            <td>{{$BSS->description}}</td>
-                        </tr>
-                    @endforeach
-                    <input type="hidden" value="{{\Auth::id()}}" id="user_id">
-                    </tbody>
-                </table>
+                <form action="{{url('/bss-add-desc')}}" method="POST">
+                    @csrf
+                    <p>{{$BSS->title}}</p>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="floatingTextarea" name="description">{{$desc->description}}</textarea>
+                        <label for="floatingTextarea">解釈を記入</label>
+                    </div>
+                    <input type="hidden" name="BSS_id" value="{{$BSS->id}}">
+                    <input type="hidden" name="is_exists" value="{{$is_exists}}">
+                    <button type="submit" class="btn btn-primary mt-3">編集する</button>
+                </form>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->

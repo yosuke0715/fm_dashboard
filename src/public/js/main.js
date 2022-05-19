@@ -31,10 +31,24 @@ $(window).ready(function(){
     $('.BSS_edit_btn').on('click', function(){
        const BSS_id = $(this).val();
        location.href = '/admin/bss-edit/'+BSS_id;
+       return false;
     });
     $('.BSS_del_btn').on('click', function(){
         const BSS_id = $(this).val();
         location.href = '/admin/bss-del/'+BSS_id;
+        return false;
+    });
+
+    $('.sort_no').on('click', function(){
+        location.href = '/bss_sort/no';
+        return false;
+    });
+
+    $('.add_desc').on('click', function(){
+        const target_url = $(this).val();
+        location.href = '/bss-add-desc/'+target_url;
+
+        return false;
     });
 });
 

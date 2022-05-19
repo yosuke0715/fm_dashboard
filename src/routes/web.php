@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');
     Route::get('/bss-test', 'App\Http\Controllers\BssController@showBssTestPage');
     Route::get('/bss-desc', 'App\Http\Controllers\BssController@showBssDescPage');
+    Route::get('/bss_sort/no', 'App\Http\Controllers\BssController@showBssDescPageAfterSort');
+    Route::get('/bss-add-desc/{id}', 'App\Http\Controllers\BssController@showAddBSSDescripionPage');
+    Route::post('/bss-add-desc', 'App\Http\Controllers\BssController@addBSSDescripion');
 });
 
 /*
