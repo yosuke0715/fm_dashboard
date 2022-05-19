@@ -15,22 +15,28 @@
                             {{$message}}
                         </div>
                         @endif
-                        <form action="{{url('/admin/bss-add')}}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">BSSタイトル</label>
-                                <input name="title" type="text" class="form-control" id="exampleInputEmail1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label" style="margin-right: 20px">レベル感</label>1:大事すぎる　2:できてほしい　3:できればできてほしい　4:余裕があれば
-                                <input name="level" type="text" class="form-control" id="exampleInputPassword1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">備考</label>
-                                <textarea name="note" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">追加する</button>
-                        </form>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">解答</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">タイトル</th>
+                                    <th scope="col">解釈</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($scores as $index => $score)
+                                    <?php $index++; ?>
+                                    <tr>
+                                        <td><button class="btn btn-primary btn-sm add_desc add_OK_flag" value="{{$score->id}}">OK</button></td>
+                                        <td><button class="btn btn-danger btn-sm add_desc add_NG_flag" value="{{$score->id}}">NG</button></td>
+                                        <td>{{$score->name}}</td>
+                                        <td>{{$score->description}}</td>
+                                    </tr>
+                                @endforeach
+                                <input type="hidden" value="{{\Auth::id()}}" id="user_id">
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>

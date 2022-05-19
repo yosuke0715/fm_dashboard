@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dateTime('last_login_at')->nullable();
+        Schema::table('descriptions', function (Blueprint $table) {
+            $table->integer('OK_flag')->nullable();
+            $table->integer('NG_flag')->nullable();
         });
     }
 
@@ -25,8 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_login_at');
+        Schema::table('descriptions', function (Blueprint $table) {
+            $table->dropColumn('OK_flag');
+            $table->dropColumn('NG_flag');
         });
     }
 };

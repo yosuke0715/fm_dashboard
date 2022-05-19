@@ -60,7 +60,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('home',      'App\Http\Controllers\Admin\DashboardController@showDashboard')->name('admin.home');
     Route::get('/bss-view', 'App\Http\Controllers\Admin\BSSController@showBSSPage');
     Route::get('/bss-add', 'App\Http\Controllers\Admin\BSSController@showAddBSSPage');
-    Route::get('/bss-score', 'App\Http\Controllers\Admin\BSSController@showBSSScore');
+    Route::get('/bss-score', 'App\Http\Controllers\Admin\ScoreController@showScorePage');
+    Route::get('/bss-score/OK/{id}', 'App\Http\Controllers\Admin\ScoreController@addBSSOKFlag');
+    Route::get('/bss-score/NG/{id}', 'App\Http\Controllers\Admin\ScoreController@addBSSNGFlag');
     Route::get('/add-category', 'App\Http\Controllers\Admin\CategoryController@showAddCategoryPage');
     Route::post('/add-category', 'App\Http\Controllers\Admin\CategoryController@addCategory');
     Route::post('/bss-add', 'App\Http\Controllers\Admin\BSSController@addBSS');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Achieve;
 use App\Models\BSS;
+use App\Models\Score;
 use App\Models\User;
 use App\Models\Description;
 use Illuminate\Http\Request;
@@ -42,17 +43,17 @@ class BssController extends Controller
      * BSS解釈記入ページ表示
      * @return View
      */
-    public function showBssDescPage(){
+    public function showBssDescPage($message = null){
         $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
             ->leftjoin('descriptions', function($join){
                 $join->on('descriptions.BSS_id', '=', 'BSS.id')
                     ->where('user_id', Auth::id());
             })
-            ->select('BSS.id as id', 'BSS.title', 'descriptions.description', 'categories.name')
+            ->select('BSS.id as id', 'BSS.title', 'descriptions.description', 'descriptions.OK_flag', 'descriptions.NG_flag', 'categories.name')
             ->get();
 
-
         return view('bss_desc')
+            ->with('message', $message)
             ->with('BSS_data', $BSS_data);
 
     }
@@ -107,24 +108,39 @@ class BssController extends Controller
     public function addBSSDescripion(Request $request){
         $user_id = Auth::id();
         $description = $request->description;
+        $name = $request->name;
         $BSS_id = $request->BSS_id;
         try {
             if($request->is_exists == 1){
                 Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
+                    'description' => $description,
+                    'NG_flag' => null,
+                ]);
+                Score::create([
+                   'user_id' =>  $user_id,
+                    'BSS_id' => $BSS_id,
+                    'name' => $name,
                     'description' => $description
                 ]);
-
             }else{
                 Description::create([
                     'user_id' => $user_id,
                     'BSS_id' => $BSS_id,
+                    'description' => $description,
+                ]);
+                Score::create([
+                    'user_id' =>  $user_id,
+                    'BSS_id' => $BSS_id,
+                    'name' => $name,
                     'description' => $description
                 ]);
             }
+            $message = '追加に成功しました。';
+            return self::showBssDescPage($message);
         } catch (\Throwable $th) {
             $message = '通信に失敗しました。';
 
-            return self::showBssDescPage();
+            return self::showBssDescPage($message);
         }
 
 

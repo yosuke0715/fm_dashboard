@@ -50,5 +50,13 @@ $(window).ready(function(){
 
         return false;
     });
+    $('.add_OK_flag').on('click', function (){
+        const target_id = $(this).val();
+        location.href = '/admin/bss-score/OK/'+target_id;
+    });
+    $('.add_NG_flag').on('click', function (){
+        const target_id = $(this).val();
+        location.href = '/admin/bss-score/NG/'+target_id;
+    });
 });
 
