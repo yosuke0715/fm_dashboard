@@ -26,6 +26,7 @@ Route::get('/', function () { return redirect('/home'); });
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => 'auth:user'], function() {
+    Route::post('logout',   'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
     Route::get('/home', 'DashboardController@showDashboard')->name('home');
     Route::get('/bss-view', 'App\Http\Controllers\BssController@showBssPage');
     Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');

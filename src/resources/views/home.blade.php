@@ -235,8 +235,8 @@
                                                             <tr>
                                                                 <th>User</th>
                                                                 <th>Progress</th>
-                                                                <th>Company</th>
-                                                                <th>Status</th>
+                                                                <th class="text-center">解釈記入率</th>
+                                                                <th class="text-center">最終ログイン</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -244,10 +244,9 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="d-flex ">
-                                                                        <img src="images/faces/face1.jpg" alt="">
                                                                         <div>
                                                                             <h6>{{$user_progress['user_name']}}</h6>
-                                                                            <p>Head admin</p>
+                                                                            <p>{{$user_progress['user_mail']}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </td>
@@ -263,10 +262,9 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
+                                                                    <h6 class="text-center">{{$user_progress['description_count']}} %</h6>
                                                                 </td>
-                                                                <td><div class="badge badge-opacity-warning">In progress</div></td>
+                                                                <td class="text-center">@if(!is_null($user_progress['last_login'])){{$user_progress['last_login']}}@endif</td>
                                                             </tr>
                                                             @endforeach
                                                             </tbody>

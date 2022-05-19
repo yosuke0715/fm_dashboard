@@ -31,13 +31,18 @@ class DashboardController extends Controller
 
         $user_progress_array = [];
         foreach ($users as $index => $user){
+            $user_OK_count = intval(Achieve::where('user_id', $user->id)->where('achievement', self::achieve_OK)->count());
+            $user_middle_count = intval(Achieve::where('user_id', $user->id)->where('achievement', self::achieve_Middle)->count());
+            $user_description = Description::where('user_id', $user->id)->count();
+            $user_description_count = round(($user_description/$BSS_count)*100, 1);
             $user_progress_array[$index]['user_id'] = $user->id;
             $user_progress_array[$index]['user_name'] = $user->name;
-            $user_OK_count = intval(Achieve::where('user_id', $user->id)->where('achievement', self::achieve_OK)->count());
+            $user_progress_array[$index]['user_mail'] = $user->email;
             $user_progress_array[$index]['OK_count'] = $user_OK_count;
-            $user_middle_count = intval(Achieve::where('user_id', $user->id)->where('achievement', self::achieve_Middle)->count());
             $user_progress_array[$index]['total_progress'] = round(($user_OK_count + $user_middle_count*0.5)/$BSS_count*100, 1);
             $user_progress_array[$index]['BSS_count'] = $BSS_count;
+            $user_progress_array[$index]['description_count'] = $user_description_count;
+            $user_progress_array[$index]['last_login'] = $user->last_login_at;
         }
 
         $today = new Carbon('today');
