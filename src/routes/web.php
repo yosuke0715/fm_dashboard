@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/bss-sort/sort/{id}', 'App\Http\Controllers\BssController@showBssPageAfterSort');
     Route::get('/bss-add-desc/{id}', 'App\Http\Controllers\BssController@showAddBSSDescripionPage');
     Route::post('/bss-add-desc', 'App\Http\Controllers\BssController@addBSSDescripion');
+    Route::get('/{user_id}/{BSS_id}/{achieve_id}', 'App\Http\Controllers\AjaxController@addBSSAchievement');
 });
 
 /*

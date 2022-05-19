@@ -62,7 +62,7 @@ class BssController extends Controller
      * 解釈未記入のレコードのみ表示
      * @return View
      */
-    public function showBssDescPageAfterSort(){
+    public function showBssDescPageAfterSort($message = null){
         $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
             ->leftjoin('descriptions', function($join){
                 $join->on('descriptions.BSS_id', '=', 'BSS.id')
@@ -73,6 +73,7 @@ class BssController extends Controller
 
 
         return view('bss_desc')
+            ->with('message', $message)
             ->with('BSS_data', $BSS_data);
     }
 
@@ -163,7 +164,7 @@ class BssController extends Controller
                         ->where('achieve.user_id', $user_id);
                 })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
                     ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->where('achievement', 0)->get();
+                    ->orderby('BSS.id', 'ASC')->where('achievement', 2)->get();
                 break;
             case 2:
                 $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
@@ -179,7 +180,7 @@ class BssController extends Controller
                         ->where('achieve.user_id', $user_id);
                 })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
                     ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->where('achievement', 2)->get();
+                    ->orderby('BSS.id', 'ASC')->where('achievement', 0)->get();
                 break;
         }
         return view('bss')

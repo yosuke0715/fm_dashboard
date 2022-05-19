@@ -20,6 +20,7 @@
                                 <tr>
                                     <th scope="col">解答</th>
                                     <th scope="col"></th>
+                                    <th scope="col">名前</th>
                                     <th scope="col">タイトル</th>
                                     <th scope="col">解釈</th>
                                 </tr>
@@ -31,6 +32,7 @@
                                         <td><button class="btn btn-primary btn-sm add_desc add_OK_flag" value="{{$score->id}}">OK</button></td>
                                         <td><button class="btn btn-danger btn-sm add_desc add_NG_flag" value="{{$score->id}}">NG</button></td>
                                         <td>{{$score->name}}</td>
+                                        <td>{{$score->title}}</td>
                                         <td>{{$score->description}}</td>
                                     </tr>
                                 @endforeach

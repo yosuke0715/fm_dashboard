@@ -9,12 +9,22 @@ use phpDocumentor\Reflection\Types\Self_;
 
 class CategoryController extends Controller
 {
+    /**
+     * カテゴリー追加ページを表示
+     * @param $message
+     * @return View
+     */
     public function showAddCategoryPage($message = null){
 
         return view('admin.add_category')
             ->with('message', $message);
     }
 
+    /**
+     * カテゴリーを追加する
+     * @param Request $request
+     * @return View
+     */
     public function addCategory(Request $request){
         try {
             $category = $request->category;
@@ -30,6 +40,5 @@ class CategoryController extends Controller
 
             return self::showAddCategoryPage($message);
         }
-        return self::showAddCategoryPage($message);
     }
 }

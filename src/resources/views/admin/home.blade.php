@@ -65,184 +65,40 @@
                                                         <table class="table select-table">
                                                             <thead>
                                                             <tr>
-                                                                <th>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </th>
-                                                                <th>Customer</th>
-                                                                <th>Company</th>
+                                                                <th>User</th>
                                                                 <th>Progress</th>
-                                                                <th>Status</th>
+                                                                <th class="text-center">解釈記入率</th>
+                                                                <th class="text-center">最終ログイン</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex ">
-                                                                        <img src="{{asset('images/faces/face1.jpg')}}" alt="">
+                                                            @foreach($users as $user)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex ">
+                                                                            <div>
+                                                                                <h6>{{$user['user_name']}}</h6>
+                                                                                <p>{{$user['user_mail']}}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
                                                                         <div>
-                                                                            <h6>Brandon Washington</h6>
-                                                                            <p>Head admin</p>
+                                                                            <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
+                                                                                <p class="text-success">{{$user['total_progress']}} %</p>
+                                                                                <p>{{$user['OK_count']}} / {{$user['BSS_count']}}</p>
+                                                                            </div>
+                                                                            <div class="progress progress-md">
+                                                                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$user['total_progress']}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success"> %</p>
-                                                                            <p></p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 1%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-warning">In progress</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        <img src="{{asset('images/faces/face2.jpg')}}" alt="">
-                                                                        <div>
-                                                                            <h6>Laura Brooks</h6>
-                                                                            <p>Head admin</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success">65%</p>
-                                                                            <p>85/162</p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-warning">In progress</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        <img src="{{asset('images/faces/face3.jpg')}}" alt="">
-                                                                        <div>
-                                                                            <h6>Wayne Murphy</h6>
-                                                                            <p>Head admin</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success">65%</p>
-                                                                            <p>85/162</p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-warning">In progress</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        <img src="{{asset('images/faces/face4.jpg')}}" alt="">
-                                                                        <div>
-                                                                            <h6>Matthew Bailey</h6>
-                                                                            <p>Head admin</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success">65%</p>
-                                                                            <p>85/162</p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-danger">Pending</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-check form-check-flat mt-0">
-                                                                        <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" aria-checked="false"><i class="input-helper"></i></label>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex">
-                                                                        <img src="{{asset('images/faces/face5.jpg')}}" alt="">
-                                                                        <div>
-                                                                            <h6>Katherine Butler</h6>
-                                                                            <p>Head admin</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success">65%</p>
-                                                                            <p>85/162</p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-success">Completed</div></td>
-                                                            </tr>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 class="text-center">{{$user['description_count']}} %</h6>
+                                                                    </td>
+                                                                    <td class="text-center">@if(!is_null($user['last_login'])){{$user['last_login']}}@endif</td>
+                                                                </tr>
+                                                            @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
