@@ -178,26 +178,6 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper" style="overflow-x: scroll">
-                <div class="row mb-2">
-                    <div class="col-2">
-                        <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">
-
-                            <option selected>並び替え</option>
-                            <option value="1">種類別</option>
-                            <option value="2">Level順</option>
-                            <option value="3">No順</option>
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">
-
-                            <option selected>絞り込み</option>
-                            <option value="1">〇のみ</option>
-                            <option value="2">△のみ</option>
-                            <option value="3">未達成のみ</option>
-                        </select>
-                    </div>
-                </div>
                 <table class="table table-striped">
                     <thead>
                     <tr>

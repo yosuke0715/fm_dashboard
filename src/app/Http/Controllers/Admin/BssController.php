@@ -36,6 +36,12 @@ class BssController extends Controller
 
     }
 
+    public function showBSSScore($message = null){
+
+        return view('admin.bss_score')
+            ->with('message', $message);
+    }
+
     public function showBSSProgressPage(){
         $users = User::get();
         $user_array = [];

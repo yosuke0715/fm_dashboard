@@ -76,6 +76,11 @@ class BssController extends Controller
     }
 
 
+    /**
+     * BSS解釈追加ページ表示
+     * @param $id
+     * @return View
+     */
     public function showAddBSSDescripionPage($id){
         $user_id = Auth::id();
         $desc = null;
@@ -93,21 +98,35 @@ class BssController extends Controller
             ->with('is_exists', $is_exists)
             ->with('BSS', $BSS);
     }
+
+    /**
+     * BSS解釈を追加する
+     * @param Request $request
+     * @return View
+     */
     public function addBSSDescripion(Request $request){
         $user_id = Auth::id();
         $description = $request->description;
         $BSS_id = $request->BSS_id;
-        if($request->is_exists == 1){
-            Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
-                'description' => $description
-            ]);
-        }else{
-            Description::create([
-                'user_id' => $user_id,
-                'BSS_id' => $BSS_id,
-                'description' => $description
-            ]);
+        try {
+            if($request->is_exists == 1){
+                Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
+                    'description' => $description
+                ]);
+
+            }else{
+                Description::create([
+                    'user_id' => $user_id,
+                    'BSS_id' => $BSS_id,
+                    'description' => $description
+                ]);
+            }
+        } catch (\Throwable $th) {
+            $message = '通信に失敗しました。';
+
+            return self::showBssDescPage();
         }
+
 
         return self::showBssDescPage();
     }
