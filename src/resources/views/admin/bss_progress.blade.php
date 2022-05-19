@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-   @include('nav.top_navbar')
-   <!-- partial -->
+    @include('nav_admin.top_navbar')
+    <<!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_settings-panel.html -->
         <div class="theme-setting-wrapper">
@@ -23,8 +23,7 @@
                 </div>
             </div>
         </div>
-        <div id="right-sidebar" class="settings-panel">
-            <i class="settings-close ti-close"></i>
+        <div id="right-sidebar" class="settings-panel"><i class="settings-close ti-close"></i>
             <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
@@ -175,114 +174,41 @@
         </div>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
-        @include('nav.sidebar')
-        <!-- partial -->
+    @include('nav_admin.sidebar')
+    <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="home-tab">
-                            <div class="tab-content tab-content-basic">
-                                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="statistics-details d-flex align-items-center justify-content-between">
-                                                <div>
-                                                    <p class="statistics-title">進捗合計</p>
-                                                    <h3 class="rate-percentage">{{round($total_progress, 1)}} <span style="font-size: 12px;">%</span></h3>
-                                                    <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                                                </div>
-                                                <div>
-                                                    <p class="statistics-title">合計〇数</p>
-                                                    <h3 class="rate-percentage">{{$OK_count}} <span style="font-size: 12px;">個</span></h3>
-                                                    <p class="text-success d-flex"><i class="mdi mdi-menu-up"></i><span>+0.1%</span></p>
-                                                </div>
-                                                <div>
-                                                    <p class="statistics-title">合計△数</p>
-                                                    <h3 class="rate-percentage">{{$middle_count}} <span style="font-size: 12px;">個</span></h3>
-                                                    <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                                </div>
-                                                <div class="d-none d-md-block">
-                                                    <p class="statistics-title">空白数</p>
-                                                    <h3 class="rate-percentage">{{$blank_count}} <span style="font-size: 12px;">個</span></h3>
-                                                    <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                                </div>
-                                                <div class="d-none d-md-block">
-                                                    <p class="statistics-title">解釈記入率</p>
-                                                    <h3 class="rate-percentage">68.8</h3>
-                                                    <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
-                                                </div>
-                                                <div class="d-none d-md-block">
-                                                    <p class="statistics-title">研修終了まで</p>
-                                                    <h3 class="rate-percentage"><span style="font-size: 10px;">あと</span> {{$date_count}} <span style="font-size: 10px;">日</span></h3>
-                                                    <p class="text-success d-flex"><i class="mdi mdi-menu-down"></i><span>+0.8%</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row flex-grow">
-                                        <div class="col-12 grid-margin stretch-card">
-                                            <div class="card card-rounded">
-                                                <div class="card-body">
-                                                    <div class="d-sm-flex justify-content-between align-items-start">
-                                                        <div>
-                                                            <h4 class="card-title card-title-dash">全員の進捗</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="table-responsive  mt-1">
-                                                        <table class="table select-table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>User</th>
-                                                                <th>Progress</th>
-                                                                <th>Company</th>
-                                                                <th>Status</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            @foreach($user_progress_array as $user_progress)
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-flex ">
-                                                                        <img src="images/faces/face1.jpg" alt="">
-                                                                        <div>
-                                                                            <h6>{{$user_progress['user_name']}}</h6>
-                                                                            <p>Head admin</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                            <p class="text-success">{{$user_progress['total_progress']}} %</p>
-                                                                            <p>{{$user_progress['OK_count']}} / {{$user_progress['BSS_count']}}</p>
-                                                                        </div>
-                                                                        <div class="progress progress-md">
-                                                                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$user_progress['total_progress']}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>Company name 1</h6>
-                                                                    <p>company type</p>
-                                                                </td>
-                                                                <td><div class="badge badge-opacity-warning">In progress</div></td>
-                                                            </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">タイトル</th>
+                        @foreach($BSS_array[0]['user_name'] as $key => $user)
+                            <td>{{$key}}</td>
+                        @endforeach
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($BSS_array as $index => $BSS)
+                        <tr>
+                            <th scope="row">{{$index}}</th>
+                            <td>{{$BSS['title']}}</td>
+                            @foreach($BSS['user_name'] as $key => $achieve)
+                            <td>
+                            @if($achieve == 0)
+                                    <i class="far fa-times"></i>
+                                @elseif($achieve == 1)
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                @else
+                                    <i class="far fa-circle"></i>
+                                @endif
+                            </td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    <input type="hidden" value="{{\Auth::id()}}" id="user_id">
+                    </tbody>
+                </table>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->

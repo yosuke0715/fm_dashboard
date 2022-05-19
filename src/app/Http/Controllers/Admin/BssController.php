@@ -14,9 +14,8 @@ use phpDocumentor\Reflection\Utils;
 class BssController extends Controller
 {
     public function showBssPage(){
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
+        $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
+            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note', 'categories.name')
             ->orderby('BSS.id', 'ASC')
             ->get();
         return view('admin.bss')
@@ -35,6 +34,41 @@ class BssController extends Controller
         return view('admin.bss_desc')
             ->with('BSS_data', $BSS_data);
 
+    }
+
+    public function showBSSProgressPage(){
+        $users = User::get();
+        $user_array = [];
+        $BSS_ids = BSS::whereNull('deleted_at')->select('id')->get();
+        foreach($users as $index => $user){
+            $user_id = $user->id;
+            $achieve_array[$index] = Achieve::where('user_id', $user_id)->select('BSS_id', 'achievement')->get();
+            $index_plus = 0;
+            foreach ($BSS_ids as $i => $BSS_id){
+                if(isset($achieve_array[$index][$index_plus]['BSS_id'])){
+                    if ($BSS_id->id == $achieve_array[$index][$index_plus]['BSS_id'] ) {
+                        $user_array[$user->name][$i] = $achieve_array[$index][$index_plus]['achievement'];
+                        $index_plus++;
+                    } else {
+                        $user_array[$user->name][$i] = null;
+                    }
+                }else {
+                    $user_array[$user->name][$i] = null;
+                }
+            }
+        }
+        $BSS = BSS::whereNull('deleted_at')->get();
+        $BSS_array = [];
+        foreach ($BSS as $index => $BSS_item){
+            $BSS_array[$index]['id'] = $BSS_item->id;
+            $BSS_array[$index]['title'] = $BSS_item->title;
+            foreach ($users as $user){
+                $BSS_array[$index]['user_name'][$user->name] = $user_array[$user->name][$index];
+            }
+        }
+        return view('admin.bss_progress')
+        ->with('users', $users)
+        ->with('BSS_array', $BSS_array);
     }
 
     public function showAddBSSPage($message = null){

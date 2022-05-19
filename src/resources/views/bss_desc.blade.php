@@ -183,9 +183,9 @@
                     <tr>
                         <th scope="col">No.</th>
                         <th scope="col">種類</th>
-                        <th scope="col">レベル</th>
-                        <th scope="col">項目</th>
+                        <th scope="col">タイトル</th>
                         <th scope="col">解釈</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -194,9 +194,8 @@
                         <tr>
                             <th scope="row">{{$index}}</th>
                             <td>{{$BSS->name}}</td>
-                            <td>{{$BSS->level}}</td>
                             <td>{{$BSS->title}}</td>
-                            <td><button class="btn btn-danger">解釈を記入</button></td>
+                            <td><button class="btn btn-danger  btn-sm">記入</button></td>
                         </tr>
                     @endforeach
                     <input type="hidden" value="{{\Auth::id()}}" id="user_id">

@@ -204,7 +204,6 @@
                         <th scope="col">No.</th>
                         <th scope="col">種類</th>
                         <th scope="col">レベル</th>
-                        <th scope="col">達成</th>
                         <th scope="col">項目</th>
                         <th scope="col">備考</th>
                     </tr>
@@ -216,23 +215,6 @@
                         <th scope="row">{{$index}}</th>
                         <td>{{$BSS->name}}</td>
                         <td>{{$BSS->level}}</td>
-                        <td>
-                            <select name="achievement" class="achievement">
-                                @if($BSS->achievement == "0" || $BSS->achievement == null)
-                                    <option value="{{$BSS->id}}/0" selected>未達成</option>
-                                    <option value="{{$BSS->id}}/1">わかる</option>
-                                    <option value="{{$BSS->id}}/2">説明できる</option>
-                                @elseif($BSS->achievement == "1")
-                                    <option value="{{$BSS->id}}/0">未達成</option>
-                                    <option value="{{$BSS->id}}/1" selected>わかる</option>
-                                    <option value="{{$BSS->id}}/2">説明できる</option>
-                                @elseif($BSS->achievement == "2")
-                                    <option value="{{$BSS->id}}/0">未達成</option>
-                                    <option value="{{$BSS->id}}/1">わかる</option>
-                                    <option value="{{$BSS->id}}/2" selected>説明できる</option>
-                                @endif
-                            </select>
-                        </td>
                         <td>{{$BSS->title}}</td>
                         <td>{{$BSS->note}}</td>
                     </tr>

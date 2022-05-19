@@ -12,13 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
 /*
 |--------------------------------------------------------------------------
 | 1) User 認証不要
@@ -33,6 +27,10 @@ Route::get('/', function () { return redirect('/home'); });
 */
 Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/home', 'DashboardController@showDashboard')->name('home');
+    Route::get('/bss-view', 'App\Http\Controllers\BssController@showBssPage');
+    Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');
+    Route::get('/bss-test', 'App\Http\Controllers\BssController@showBssTestPage');
+    Route::get('/bss-desc', 'App\Http\Controllers\BssController@showBssDescPage');
 });
 
 /*
@@ -58,13 +56,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('/bss-add', 'App\Http\Controllers\Admin\BSSController@showAddBSSPage');
     Route::post('/bss-add', 'App\Http\Controllers\Admin\BSSController@addBSS');
     Route::get('/bss-edit', 'App\Http\Controllers\Admin\BSSController@showEditPage');
+    Route::get('/bss-progress', 'App\Http\Controllers\Admin\BSSController@showBSSProgressPage');
     Route::post('/bss-update', 'App\Http\Controllers\Admin\BSSController@updateBSS');
     Route::get('/BSS-search/{id}', 'App\Http\Controllers\Admin\BSSController@searchBSS');
     Route::get('/bss-edit/{id}', 'App\Http\Controllers\Admin\BSSController@showEditBSSPage');
     Route::get('/bss-del/{id}', 'App\Http\Controllers\Admin\BSSController@deleteBSS');
 });
-Route::get('/bss-view', 'App\Http\Controllers\BssController@showBssPage');
-Route::get('/bss-test', 'App\Http\Controllers\BssController@showBssTestPage');
-Route::get('/bss-desc', 'App\Http\Controllers\BssController@showBssDescPage');
-Route::get('/{user_id}/{BSS_id}/{achieve_id}', 'App\Http\Controllers\AjaxController@addBSSAchievement');
-Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');
+

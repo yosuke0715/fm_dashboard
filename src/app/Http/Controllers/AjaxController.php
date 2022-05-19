@@ -14,21 +14,20 @@ class AjaxController extends Controller
             $is_exists = Achieve::where('user_id', $user_id)->where('BSS_id', $BSS_id)->exists();
             Log::debug($achieve_id);
 
-//            if($is_exists){
+                if($is_exists){
+                    Achieve::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
+                        'achievement' => $achieve_id
+                    ]);
+                }else{
+                    $achieveModel = new Achieve;
+                    $achieveModel->user_id = $user_id;
+                    $achieveModel->BSS_id = $BSS_id;
+                    $achieveModel->achievement = $achieve_id;
+                    $achieveModel->created_at = now();
+                    $achieveModel->updated_at = now();
+                    $achieveModel->save();
+                }
 
-//                Achieve::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
-//                    'achievement' => $achieve_id
-//                ]);
-//            }else{
-
-                $achieveModel = new Achieve;
-                $achieveModel->user_id = $user_id;
-                $achieveModel->BSS_id = $BSS_id;
-                $achieveModel->achievement = $achieve_id;
-                $achieveModel->created_at = now();
-                $achieveModel->updated_at = now();
-                $achieveModel->save();
-//            }
 
             $result = [
                 'message' => '成功しました'

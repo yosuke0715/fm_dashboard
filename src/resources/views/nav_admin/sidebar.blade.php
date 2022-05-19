@@ -1,12 +1,19 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="{{url('/')}}">
+            <a class="nav-link" href="{{url('/admin/home')}}">
                 <i class="mdi mdi-grid-large menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item nav-category">BSS</li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/admin/bss-progress')}}">
+                <i class="menu-icon mdi mdi-floor-plan"></i>
+                <span class="menu-title">BSS【進捗】</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="{{url('/admin/bss-view')}}">
                 <i class="menu-icon mdi mdi-floor-plan"></i>

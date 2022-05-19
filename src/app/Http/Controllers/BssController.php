@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\Auth;
 class BssController extends Controller
 {
     public function showBssPage(){
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+        $user_id = Auth::id();
+
+        $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+            $join->on('achieve.BSS_id', '=', 'BSS.id')
+                ->where('achieve.user_id', $user_id);
+        })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
             ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
             ->orderby('BSS.id', 'ASC')
             ->get();
-        return view('admin.bss')
+
+        return view('bss')
             ->with('BSS_data', $BSS_data);
     }
 
@@ -25,8 +30,8 @@ class BssController extends Controller
     }
 
     public function showBssDescPage(){
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->join('categories', 'categories.id', '=', 'BSS.category_id')
+        // ここに解釈テーブルをジョインしたい
+        $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
             ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
             ->get();
         return view('bss_desc')
