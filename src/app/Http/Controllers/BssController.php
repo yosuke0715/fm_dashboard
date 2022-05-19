@@ -112,4 +112,83 @@ class BssController extends Controller
         return self::showBssDescPage();
     }
 
+    /**
+     * BSSの絞り込みを行う
+     * メモ：　１：〇のみ　２：△のみ　３：空白
+     * @param $id
+     * @return View
+     */
+    public function showBssPageAfterSearch($id){
+        $user_id = Auth::id();
+
+        switch ($id){
+            case 1:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.id', 'ASC')->where('achievement', 0)->get();
+                break;
+            case 2:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.id', 'ASC')->where('achievement', 1)->get();
+                break;
+            case 3:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.id', 'ASC')->where('achievement', 2)->get();
+                break;
+        }
+        return view('bss')
+            ->with('BSS_data', $BSS_data);
+
+    }
+
+    /**
+     * BSSの並び替えを行う
+     * メモ：１：カテゴリー　２：レベル　３：No.
+     * @param $id
+     * @return View
+     */
+    public function showBssPageAfterSort($id){
+        $user_id = Auth::id();
+
+        switch ($id){
+            case 1:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.category_id', 'ASC')->get();
+                break;
+            case 2:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.level', 'ASC')->get();
+                break;
+            case 3:
+                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
+                    $join->on('achieve.BSS_id', '=', 'BSS.id')
+                        ->where('achieve.user_id', $user_id);
+                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
+                    ->orderby('BSS.id', 'ASC')->get();
+                break;
+        }
+        return view('bss')
+            ->with('BSS_data', $BSS_data);
+    }
+
 }

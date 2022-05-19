@@ -180,21 +180,21 @@
             <div class="content-wrapper">
                 <div class="row mb-2">
                     <div class="col-2">
-                        <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">
+                        <select class="form-select form-select-sm" onChange="location.href=value;" aria-label="form-select-sm Default select example">
 
                             <option selected>並び替え</option>
-                            <option value="1">種類別</option>
-                            <option value="2">Level順</option>
-                            <option value="3">No順</option>
+                            <option value="/bss-sort/sort/1">種類別</option>
+                            <option value="/bss-sort/sort/2">Level順</option>
+                            <option value="/bss-sort/sort/3">No順</option>
                         </select>
                     </div>
                     <div class="col-2">
-                        <select class="form-select form-select-sm" aria-label="form-select-sm Default select example">
+                        <select class="form-select form-select-sm" onChange="location.href=value;" aria-label="form-select-sm Default select example">
 
                             <option selected>絞り込み</option>
-                            <option value="1">〇のみ</option>
-                            <option value="2">△のみ</option>
-                            <option value="3">未達成のみ</option>
+                            <option value="/bss-sort/search/1">〇のみ</option>
+                            <option value="/bss-sort/search/2">△のみ</option>
+                            <option value="/bss-sort/search/3">未達成のみ</option>
                         </select>
                     </div>
                 </div>

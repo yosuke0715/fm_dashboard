@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Description;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,8 @@ class DashboardController extends Controller
         $total_progress = ($OK_count + $middle_count*0.5)/$BSS_count*100;
         $blank_count = $BSS_count - $OK_count - $middle_count;
         $users = User::get();
+        $description = Description::where('user_id', $user_id)->count();
+        $description_count = round(($description/$BSS_count)*100, 1);
 
         $user_progress_array = [];
         foreach ($users as $index => $user){
@@ -47,6 +50,7 @@ class DashboardController extends Controller
             ->with('blank_count', $blank_count)
             ->with('users', $users)
             ->with('date_count', $date_count)
+            ->with('description_count', $description_count)
             ->with('BSS_count', $BSS_count)
             ->with('user_progress_array', $user_progress_array)
             ->with('total_progress', $total_progress);
