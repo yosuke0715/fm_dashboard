@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Description;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BssController extends Controller
 {
@@ -101,11 +102,15 @@ class BssController extends Controller
         $BSS_id = $request->BSS_id;
         try {
             if($request->is_exists == 1){
+
+                // トランザクション開始
+                DB::beginTransaction();
                 Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
                     'description' => $description,
                     'NG_flag' => null,
                 ]);
                 Score::CreateBSSDescription($user_id, $BSS_id, $name, $description);
+                DB::commit();
             }else{
                 Description::CreateDescription($user_id, $BSS_id, $description);
                 Score::CreateBSSDescription($user_id, $BSS_id, $name, $description);
@@ -114,7 +119,7 @@ class BssController extends Controller
             return self::showBssDescPage($message);
         } catch (\Throwable $th) {
             $message = '通信に失敗しました。';
-
+            DB::rollBack();
             return self::showBssDescPage($message);
         }
 

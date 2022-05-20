@@ -34,4 +34,5 @@ class Score extends Model
             'description' => $description
         ]);
     }
+
 }
