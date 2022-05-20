@@ -18,10 +18,7 @@ class BssController extends Controller
      * @return View
      */
     public function showBssPage(){
-        $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note', 'categories.name')
-            ->orderby('BSS.id', 'ASC')
-            ->get();
+        $BSS_data = BSS::GetBSSList();
         return view('admin.bss')
             ->with('BSS_data', $BSS_data);
     }
@@ -35,10 +32,7 @@ class BssController extends Controller
      * @return View
      */
     public function showBssDescPage(){
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
-            ->get();
+        $BSS_data = BSS::GetBSSANDAchieveList();
         return view('admin.bss_desc')
             ->with('BSS_data', $BSS_data);
 
@@ -109,12 +103,7 @@ class BssController extends Controller
      */
     public function addBSS(Request $request){
         try {
-            BSS::create([
-                'category_id' => $request->category,
-                'title' => $request->title,
-                'level' => $request->level,
-                'note' => $request->note,
-            ]);
+            BSS::CreateBSSRecord($request->category, $request->title, $request->level, $request->note);
             $message = $request->title."を新規追加しました。";
         } catch (\Exception $e) {
             $e->getMessage();
@@ -129,10 +118,7 @@ class BssController extends Controller
      * @return View
      */
     public function showEditPage(){
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
-            ->get();
+        $BSS_data = BSS::GetBSSANDAchieveList();
         $categories = Category::get();
         return view('admin.bss_edit')
             ->with('categories', $categories)
@@ -145,11 +131,8 @@ class BssController extends Controller
      * @return View
      */
     public function searchBSS($id){
-//        dd($id);
-        $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
-            ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
-            ->where('BSS.category_id', $id)->get();
+        $BSS_data = BSS::GetBSSListSearchCategory($id);
+
         $categories = Category::get();
 
         return view('admin.bss_edit')
@@ -190,9 +173,7 @@ class BssController extends Controller
      * @return View
      */
     public function deleteBSS($id){
-        BSS::where('id', $id)->update([
-            'deleted_at' => now(),
-        ]);
+        BSS::DeleteBSS($id);
 
         return self::showEditBSSPage();
     }

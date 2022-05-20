@@ -118,6 +118,9 @@
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/laravel/sail" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/laravel/serializable-closure" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/barryvdh/laravel-debugbar" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/maximebf/debugbar" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

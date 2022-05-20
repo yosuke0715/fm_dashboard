@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class BssController extends Controller
 {
+
+    private const BLANK = 1;
+    private const MIDDLE = 2;
+    private const OK = 3;
     /**
      * BSS一覧ページを表示する
      * @return View
@@ -19,13 +23,7 @@ class BssController extends Controller
     public function showBssPage(){
         $user_id = Auth::id();
 
-        $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-            $join->on('achieve.BSS_id', '=', 'BSS.id')
-                ->where('achieve.user_id', $user_id);
-        })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-            ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
-            ->orderby('BSS.id', 'ASC')
-            ->get();
+        $BSS_data = BSS::GetBSSListTargetUser($user_id);
 
         return view('bss')
             ->with('BSS_data', $BSS_data);
@@ -44,13 +42,8 @@ class BssController extends Controller
      * @return View
      */
     public function showBssDescPage($message = null){
-        $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-            ->leftjoin('descriptions', function($join){
-                $join->on('descriptions.BSS_id', '=', 'BSS.id')
-                    ->where('user_id', Auth::id());
-            })
-            ->select('BSS.id as id', 'BSS.title', 'descriptions.description', 'descriptions.OK_flag', 'descriptions.NG_flag', 'categories.name')
-            ->get();
+        $user_id = Auth::id();
+        $BSS_data = BSS::GetBSSDescriptionANDStatus($user_id);
 
         return view('bss_desc')
             ->with('message', $message)
@@ -159,28 +152,13 @@ class BssController extends Controller
 
         switch ($id){
             case 1:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->where('achievement', 2)->get();
+                $BSS_data = BSS::GetBSSListSearchAchieve($user_id, self::BLANK);
                 break;
             case 2:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->where('achievement', 1)->get();
+                $BSS_data = BSS::GetBSSListSearchAchieve($user_id, self::MIDDLE);
                 break;
             case 3:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->where('achievement', 0)->get();
+                $BSS_data = BSS::GetBSSListSearchAchieve($user_id, self::OK);
                 break;
         }
         return view('bss')
@@ -199,28 +177,13 @@ class BssController extends Controller
 
         switch ($id){
             case 1:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.category_id', 'ASC')->get();
+                $BSS_data = BSS::GetBSSListSortTargetColumn($user_id, 'BSS.category_id');
                 break;
             case 2:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.level', 'ASC')->get();
+                $BSS_data = BSS::GetBSSListSortTargetColumn($user_id, 'BSS.level');
                 break;
             case 3:
-                $BSS_data = BSS::leftjoin('achieve', function ($join) use($user_id){
-                    $join->on('achieve.BSS_id', '=', 'BSS.id')
-                        ->where('achieve.user_id', $user_id);
-                })->leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-                    ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
-                    ->orderby('BSS.id', 'ASC')->get();
+                $BSS_data = BSS::GetBSSListSortTargetColumn($user_id, 'BSS.id');
                 break;
         }
         return view('bss')
