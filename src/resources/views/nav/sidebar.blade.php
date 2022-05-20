@@ -30,7 +30,7 @@
         </li>
         <li class="nav-item nav-category">pages</li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" data-bs-toggle="collapse" href="" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
                 <span class="menu-title">未・User Pages</span>
                 <i class="menu-arrow"></i>
