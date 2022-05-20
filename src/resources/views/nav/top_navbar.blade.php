@@ -23,11 +23,11 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item d-none d-lg-block">
-                    <div id="datepicker-popup" class="input-group date datepicker navbar-date-picker">
-              <span class="input-group-addon input-group-prepend border-right">
-                <span class="icon-calendar input-group-text calendar-icon"></span>
-              </span>
-                        <input type="text" class="form-control">
+                    <div class="date">
+                        <?php
+                        $today =  new Carbon\Carbon('today');
+                        echo $today->format('Y年m月d日');;
+                        ?>
                     </div>
                 </li>
                 <li class="nav-item">

@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/bss-sort/sort/{id}', 'App\Http\Controllers\BssController@showBssPageAfterSort');
     Route::get('/bss-add-desc/{id}', 'App\Http\Controllers\BssController@showAddBSSDescripionPage');
     Route::post('/bss-add-desc', 'App\Http\Controllers\BssController@addBSSDescripion');
-    Route::get('/{user_id}/{BSS_id}/{achieve_id}', 'App\Http\Controllers\AjaxController@addBSSAchievement');
+    Route::get('/{user_id}/{BSS_id}/{achieve_id}', 'App\Http\Controllers\AjaxController@addBSSAchievement')->where('user_id', '[0-9]+')->where('BSS_id', '[0-9]+');
 });
 
 /*
@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin'], function() {
 
 /*
 |--------------------------------------------------------------------------
-| 4) Admin ログイン後
+| 4) Admin 管理者画面
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
@@ -70,7 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('/bss-edit', 'App\Http\Controllers\Admin\BSSController@showEditPage');
     Route::get('/bss-progress', 'App\Http\Controllers\Admin\BSSController@showBSSProgressPage');
     Route::post('/bss-update', 'App\Http\Controllers\Admin\BSSController@updateBSS');
-    Route::get('/BSS-search/{id}', 'App\Http\Controllers\Admin\BSSController@searchBSS');
+    Route::get('/bss-search/{id}', 'App\Http\Controllers\Admin\BSSController@searchBSS');
     Route::get('/bss-edit/{id}', 'App\Http\Controllers\Admin\BSSController@showEditBSSPage');
     Route::get('/bss-del/{id}', 'App\Http\Controllers\Admin\BSSController@deleteBSS');
 });

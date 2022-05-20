@@ -13,6 +13,10 @@ use phpDocumentor\Reflection\Utils;
 
 class BssController extends Controller
 {
+    /**
+     * BSS一覧ページを表示
+     * @return View
+     */
     public function showBssPage(){
         $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
             ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note', 'categories.name')
@@ -26,6 +30,10 @@ class BssController extends Controller
         return view('admin.bss_add');
     }
 
+    /**
+     * BSS解釈一覧ページを表示
+     * @return View
+     */
     public function showBssDescPage(){
         $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
             ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
@@ -42,6 +50,10 @@ class BssController extends Controller
             ->with('message', $message);
     }
 
+    /**
+     * BSS進捗確認ページを表示
+     * @return View
+     */
     public function showBSSProgressPage(){
         $users = User::get();
         $user_array = [];
@@ -77,6 +89,11 @@ class BssController extends Controller
         ->with('BSS_array', $BSS_array);
     }
 
+    /**
+     * BSS項目追加ページを表示
+     * @param $message
+     * @return View
+     */
     public function showAddBSSPage($message = null){
         $categories = Category::get();
 
@@ -85,6 +102,11 @@ class BssController extends Controller
             ->with('message', $message);
     }
 
+    /**
+     * BSSを追加する
+     * @param Request $request
+     * @return View
+     */
     public function addBSS(Request $request){
         try {
             BSS::create([
@@ -102,6 +124,10 @@ class BssController extends Controller
         return self::showAddBSSPage($message);
     }
 
+    /**
+     * BSS編集ページを表示
+     * @return View
+     */
     public function showEditPage(){
         $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
             ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
@@ -113,7 +139,13 @@ class BssController extends Controller
             ->with('BSS_data', $BSS_data);
     }
 
+    /**
+     * BSSカテゴリーで絞る
+     * @param $id
+     * @return View
+     */
     public function searchBSS($id){
+//        dd($id);
         $BSS_data = BSS::leftjoin('achieve', 'achieve.BSS_id', '=', 'BSS.id')
             ->join('categories', 'categories.id', '=', 'BSS.category_id')->whereNull('BSS.deleted_at')
             ->select('BSS.id as id', 'BSS.title', 'BSS.level', 'BSS.note','achieve.achievement', 'categories.name')
@@ -125,6 +157,11 @@ class BssController extends Controller
             ->with('BSS_data', $BSS_data);
     }
 
+    /**
+     * BSS編集ページの表示
+     * @param $id
+     * @return View
+     */
     public function showEditBSSPage($id){
         $categories = Category::get();
         $BSS = BSS::where('id', $id)->first();
@@ -134,6 +171,11 @@ class BssController extends Controller
             ->with('categories', $categories);
     }
 
+    /**
+     * BSSを編集する
+     * @param Request $request
+     * @return View
+     */
     public function updateBSS(Request $request){
         $BSS_id = $request->id;
         $BSSModel = BSS::find($BSS_id);
@@ -142,6 +184,11 @@ class BssController extends Controller
         return self::showEditPage();
     }
 
+    /**
+     * BSSを削除する
+     * @param $id
+     * @return View
+     */
     public function deleteBSS($id){
         BSS::where('id', $id)->update([
             'deleted_at' => now(),
