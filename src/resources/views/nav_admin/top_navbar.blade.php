@@ -49,26 +49,18 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item">
                             <div class="preview-thumbnail">
-                                <img src="{{asset('images/faces/face10.jpg')}}" alt="image" class="img-sm profile-pic">
-                            </div>
                             <div class="preview-item-content flex-grow py-2">
                                 <p class="preview-subject ellipsis font-weight-medium text-dark">Marian Garner </p>
                                 <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
                             </div>
                         </a>
                         <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="{{asset('images/faces/face12.jpg')}}" alt="image" class="img-sm profile-pic">
-                            </div>
                             <div class="preview-item-content flex-grow py-2">
                                 <p class="preview-subject ellipsis font-weight-medium text-dark">David Grey </p>
                                 <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
                             </div>
                         </a>
                         <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="{{asset('images/faces/face1.jpg')}}" alt="image" class="img-sm profile-pic">
-                            </div>
                             <div class="preview-item-content flex-grow py-2">
                                 <p class="preview-subject ellipsis font-weight-medium text-dark">Travis Jenkins </p>
                                 <p class="fw-light small-text mb-0"> The meeting is cancelled </p>
@@ -78,10 +70,10 @@
                 </li>
                 <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                     <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="img-xs rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image"> </a>
+                        <img class="img-xs rounded-circle" src="{{asset('images/icon.png')}}" alt="Profile image"> </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <div class="dropdown-header text-center">
-                            <img class="img-md rounded-circle" src="{{asset('images/faces/face8.jpg')}}" alt="Profile image">
+                            <img class="img-md rounded-circle" src="{{asset('images/icon.png')}}" alt="Profile image">
                             <p class="mb-1 mt-3 font-weight-semibold">{{\Auth::user()->name}}</p>
                             <p class="fw-light text-muted mb-0">{{\Auth::user()->email}}</p>
                         </div>
