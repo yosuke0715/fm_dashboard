@@ -35,4 +35,10 @@ class Score extends Model
         ]);
     }
 
+    public static function GetBSSScore(){
+        return self::leftjoin('users', 'users.id', '=', 'score.user_id')
+            ->select('score.id as id', 'score.user_id', 'score.name as title', 'score.BSS_id', 'score.description', 'users.name')
+            ->whereNull('deleted_at')->get();
+    }
+
 }

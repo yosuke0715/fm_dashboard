@@ -20,9 +20,7 @@ class ScoreController extends Controller
      */
     public function showScorePage($message = null){
 
-        $scores = Score::leftjoin('users', 'users.id', '=', 'score.user_id')
-            ->select('score.id as id', 'score.user_id', 'score.name as title', 'score.BSS_id', 'score.description', 'users.name')
-            ->whereNull('deleted_at')->get();
+        $scores = Score::GetBSSScore();
 
         return view('admin.bss_score')
         ->with('message', $message)
