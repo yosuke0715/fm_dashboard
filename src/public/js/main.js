@@ -4,7 +4,6 @@ $(window).ready(function(){
         const target_BCC_id = $(this).val();
         const user_id = $('#user_id').val();
         const url =  user_id+'/'+target_BCC_id;
-        console.log(url);
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

@@ -39,14 +39,9 @@ class ScoreController extends Controller
 
         try {
             DB::beginTransaction();
-            Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
-                'OK_flag' => self::TRUE,
-                'NG_flag' => self::FALSE,
-            ]);
+            Description::UpdateOKANDNGFlag($user_id, $BSS_id, self::TRUE, self::FALSE);
 
-            Score::where('id', $id)->update([
-                'deleted_at' => now(),
-            ]);
+            Score::DeleteBSSScore($id);
 
             DB::commit();
             $message = "正常に処理を行いました";
@@ -70,20 +65,17 @@ class ScoreController extends Controller
         $BSS_id = $score->BSS_id;
 
         try {
-            Description::where('user_id', $user_id)->where('BSS_id', $BSS_id)->update([
-                'OK_flag' => self::FALSE,
-                'NG_flag' => self::TRUE,
-            ]);
+            DB::beginTransaction();
+            Description::UpdateOKANDNGFlag($user_id, $BSS_id, self::FALSE, self::TRUE);
 
-            Score::where('id', $id)->update([
-                'deleted_at' => now(),
-            ]);
+            Score::DeleteBSSScore($id);
 
+            DB::commit();
             $message = "正常に処理を行いました";
             return self::showScorePage($message);
         } catch (\Throwable $th) {
             $message = '通信に失敗しました。';
-
+            DB::rollBack();
             return self::showScorePage($message);
         }
     }
