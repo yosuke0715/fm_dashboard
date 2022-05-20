@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{url('/bss-test')}}">
                 <i class="menu-icon mdi mdi-file-document"></i>
-                <span class="menu-title">BSS【テスト】</span>
+                <span class="menu-title">未・BSS【テスト】</span>
                 <i class="menu-arrow"></i>
             </a>
         </li>
@@ -32,7 +32,7 @@
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
-                <span class="menu-title">User Pages</span>
+                <span class="menu-title">未・User Pages</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="auth">
