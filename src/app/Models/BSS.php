@@ -122,7 +122,7 @@ class BSS extends Model
      * @param $achieve_id
      * @return mixed
      */
-    public function GetBSSListSearchAchieve($user_id, $achieve_id){
+    public static function GetBSSListSearchAchieve($user_id, $achieve_id){
         return self::leftjoin('achieve', function ($join) use($user_id){
             $join->on('achieve.BSS_id', '=', 'BSS.id')
                 ->where('achieve.user_id', $user_id);
@@ -131,7 +131,13 @@ class BSS extends Model
             ->orderby('BSS.id', 'ASC')->where('achievement', $achieve_id)->get();
     }
 
-    public function GetBSSListSortTargetColumn($user_id, $column_name){
+    /**
+     * 対象のカラムのみ取得する
+     * @param $user_id
+     * @param $column_name
+     * @return mixed
+     */
+    public static function GetBSSListSortTargetColumn($user_id, $column_name){
         return self::leftjoin('achieve', function ($join) use($user_id){
             $join->on('achieve.BSS_id', '=', 'BSS.id')
                 ->where('achieve.user_id', $user_id);
@@ -139,5 +145,22 @@ class BSS extends Model
             ->select('BSS.id as id', 'BSS.title', 'BSS.level','BSS.category_id', 'BSS.note','achieve.achievement', 'categories.name')
             ->orderby($column_name, 'ASC')->get();
     }
+
+    /**
+     * 解釈未記入レコードだけ取得する
+     * @param $user_id
+     * @return mixed
+     */
+    public static function GetBSSNoDescriptionData($user_id){
+        return self::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
+            ->leftjoin('descriptions', function($join) use ($user_id){
+                $join->on('descriptions.BSS_id', '=', 'BSS.id')
+                    ->where('user_id', $user_id);
+            })
+            ->select('BSS.id as id', 'BSS.title', 'descriptions.description', 'categories.name')
+            ->whereNull('descriptions.description')->get();
+    }
+
+
 
 }

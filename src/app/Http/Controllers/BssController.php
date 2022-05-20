@@ -56,13 +56,8 @@ class BssController extends Controller
      * @return View
      */
     public function showBssDescPageAfterSort($message = null){
-        $BSS_data = BSS::leftjoin('categories', 'categories.id', '=', 'BSS.category_id')
-            ->leftjoin('descriptions', function($join){
-                $join->on('descriptions.BSS_id', '=', 'BSS.id')
-                    ->where('user_id', Auth::id());
-            })
-            ->select('BSS.id as id', 'BSS.title', 'descriptions.description', 'categories.name')
-            ->whereNull('descriptions.description')->get();
+        $user_id = Auth::id();
+        $BSS_data = BSS::GetBSSNoDescriptionData($user_id);
 
 
         return view('bss_desc')
@@ -110,24 +105,10 @@ class BssController extends Controller
                     'description' => $description,
                     'NG_flag' => null,
                 ]);
-                Score::create([
-                   'user_id' =>  $user_id,
-                    'BSS_id' => $BSS_id,
-                    'name' => $name,
-                    'description' => $description
-                ]);
+                Score::CreateBSSDescription($user_id, $BSS_id, $name, $description);
             }else{
-                Description::create([
-                    'user_id' => $user_id,
-                    'BSS_id' => $BSS_id,
-                    'description' => $description,
-                ]);
-                Score::create([
-                    'user_id' =>  $user_id,
-                    'BSS_id' => $BSS_id,
-                    'name' => $name,
-                    'description' => $description
-                ]);
+                Description::CreateDescription($user_id, $BSS_id, $description);
+                Score::CreateBSSDescription($user_id, $BSS_id, $name, $description);
             }
             $message = '追加に成功しました。';
             return self::showBssDescPage($message);
@@ -137,8 +118,6 @@ class BssController extends Controller
             return self::showBssDescPage($message);
         }
 
-
-        return self::showBssDescPage();
     }
 
     /**

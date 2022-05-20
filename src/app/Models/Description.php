@@ -16,4 +16,12 @@ class Description extends Model
       'BSS_id',
       'description'
     ];
+
+    public static function CreateDescription($user_id, $BSS_id, $description){
+        return self::create([
+            'user_id' => $user_id,
+            'BSS_id' => $BSS_id,
+            'description' => $description,
+        ]);
+    }
 }
