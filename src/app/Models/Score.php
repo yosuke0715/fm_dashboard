@@ -18,6 +18,10 @@ class Score extends Model
         'score'
     ];
 
+    public function user(){
+        return $this->belongsTo('App\User')->withTimestamps();
+    }
+
     /**
      * BSS解釈を策栄する
      * @param $user_id

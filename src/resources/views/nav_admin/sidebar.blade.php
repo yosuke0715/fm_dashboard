@@ -35,11 +35,18 @@
                 <i class="menu-arrow"></i>
             </a>
         </li>
-        <li class="nav-item nav-category">解釈添削</li>
+        <li class="nav-item nav-category">添削</li>
         <li class="nav-item">
             <a class="nav-link" href="{{url('/admin/bss-score')}}">
                 <i class="menu-icon mdi mdi-account-circle-outline"></i>
                 <span class="menu-title">BSS解釈添削</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/admin/bss-test')}}">
+                <i class="menu-icon mdi mdi-account-circle-outline"></i>
+                <span class="menu-title">テスト添削</span>
                 <i class="menu-arrow"></i>
             </a>
         </li>

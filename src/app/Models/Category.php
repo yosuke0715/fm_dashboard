@@ -15,6 +15,6 @@ class Category extends Model
     ];
 
     public function bss(){
-        return $this->hasMany('App\BSS', 'category_id');
+        return $this->hasMany('App\Models\BSS', 'category_id');
     }
 }

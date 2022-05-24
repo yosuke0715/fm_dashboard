@@ -58,7 +58,7 @@
                                                 <div class="card-body">
                                                     <div class="d-sm-flex justify-content-between align-items-start">
                                                         <div>
-                                                            <h4 class="card-title card-title-dash">Pending Requests</h4>
+                                                            <h4 class="card-title card-title-dash">全員の進捗</h4>
                                                         </div>
                                                     </div>
                                                     <div class="table-responsive  mt-1">

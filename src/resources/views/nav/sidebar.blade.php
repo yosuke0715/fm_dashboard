@@ -24,7 +24,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{url('/bss-test')}}">
                 <i class="menu-icon mdi mdi-file-document"></i>
-                <span class="menu-title">未・BSS【テスト】</span>
+                <span class="menu-title">BSS【テスト】</span>
                 <i class="menu-arrow"></i>
             </a>
         </li>

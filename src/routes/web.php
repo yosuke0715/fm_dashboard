@@ -30,13 +30,14 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/home', 'DashboardController@showDashboard')->name('home');
     Route::get('/bss-view', 'App\Http\Controllers\BssController@showBssPage');
     Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');
-    Route::get('/bss-test', 'App\Http\Controllers\BssController@showBssTestPage');
+    Route::get('/bss-test', 'App\Http\Controllers\TestController@showBssTestPage');
     Route::get('/bss-desc', 'App\Http\Controllers\BssController@showBssDescPage');
     Route::get('/bss_sort/no', 'App\Http\Controllers\BssController@showBssDescPageAfterSort');
     Route::get('/bss-sort/search/{id}', 'App\Http\Controllers\BssController@showBssPageAfterSearch');
     Route::get('/bss-sort/sort/{id}', 'App\Http\Controllers\BssController@showBssPageAfterSort');
     Route::get('/bss-add-desc/{id}', 'App\Http\Controllers\BssController@showAddBSSDescripionPage');
     Route::post('/bss-add-desc', 'App\Http\Controllers\BssController@addBSSDescripion');
+    Route::post('/bss-answer', 'App\Http\Controllers\TestController@addBSSAnswer');
     Route::get('/{user_id}/{BSS_id}/{achieve_id}', 'App\Http\Controllers\AjaxController@addBSSAchievement')->where('user_id', '[0-9]+')->where('BSS_id', '[0-9]+');
 });
 
@@ -60,6 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::post('logout',   'App\Http\Controllers\Admin\LoginController@logout')->name('admin.logout');
     Route::get('home',      'App\Http\Controllers\Admin\DashboardController@showDashboard')->name('admin.home');
     Route::get('/bss-view', 'App\Http\Controllers\Admin\BSSController@showBSSPage');
+    Route::get('/bss-test', 'App\Http\Controllers\Admin\TestController@showBssTestPage');
     Route::get('/bss-add', 'App\Http\Controllers\Admin\BSSController@showAddBSSPage');
     Route::get('/bss-score', 'App\Http\Controllers\Admin\ScoreController@showScorePage');
     Route::get('/bss-score/OK/{id}', 'App\Http\Controllers\Admin\ScoreController@addBSSOKFlag');
