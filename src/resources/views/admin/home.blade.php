@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class="d-none d-md-block">
                                                     <p class="statistics-title">解釈記入率</p>
-                                                    <h3 class="rate-percentage">68.8</h3>
+                                                    <h3 class="rate-percentage">{{$user['description_count']}} <span style="font-size: 12px;">%</span></h3>
                                                     <p class="text-danger d-flex"><i class="mdi mdi-menu-down"></i><span>68.8</span></p>
                                                 </div>
                                             </div>

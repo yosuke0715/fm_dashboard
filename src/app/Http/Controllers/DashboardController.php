@@ -31,8 +31,8 @@ class DashboardController extends Controller
 
         $user_progress_array = [];
         foreach ($users as $index => $user){
-            $user_OK_count = intval(Achieve::CountAchievement($user_id, self::achieve_OK));
-            $user_middle_count = intval(Achieve::CountAchievement($user_id, self::achieve_Middle));
+            $user_OK_count = intval(Achieve::CountAchievement($user->id, self::achieve_OK));
+            $user_middle_count = intval(Achieve::CountAchievement($user->id, self::achieve_Middle));
             $user_description = Description::where('user_id', $user->id)->count();
             $user_description_count = round(($user_description/$BSS_count)*100, 1);
             $user_progress_array[$index]['user_id'] = $user->id;
