@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/bss-view', 'App\Http\Controllers\BssController@showBssPage');
     Route::get('/home', 'App\Http\Controllers\DashboardController@showDashboard')->name('home');
     Route::get('/bss-test', 'App\Http\Controllers\TestController@showBssTestPage');
+    Route::get('/bss-test-resubmit', 'App\Http\Controllers\TestController@showBSSTestResubmit');
+    Route::get('/bss-test-history', 'App\Http\Controllers\TestController@showBSSTestHistory');
     Route::get('/bss-desc', 'App\Http\Controllers\BssController@showBssDescPage');
     Route::get('/bss_sort/no', 'App\Http\Controllers\BssController@showBssDescPageAfterSort');
     Route::get('/bss-sort/search/{id}', 'App\Http\Controllers\BssController@showBssPageAfterSearch');
@@ -62,6 +64,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('home',      'App\Http\Controllers\Admin\DashboardController@showDashboard')->name('admin.home');
     Route::get('/bss-view', 'App\Http\Controllers\Admin\BSSController@showBSSPage');
     Route::get('/bss-test', 'App\Http\Controllers\Admin\TestController@showBssTestPage');
+    Route::get('/bss-test/ok/{id}', 'App\Http\Controllers\Admin\TestController@saveOKStatusBSSTest');
+    Route::get('/bss-test/ng/{id}', 'App\Http\Controllers\Admin\TestController@saveNGStatusBSSTest');
     Route::get('/bss-add', 'App\Http\Controllers\Admin\BSSController@showAddBSSPage');
     Route::get('/bss-score', 'App\Http\Controllers\Admin\ScoreController@showScorePage');
     Route::get('/bss-score/OK/{id}', 'App\Http\Controllers\Admin\ScoreController@addBSSOKFlag');

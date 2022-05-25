@@ -58,5 +58,12 @@
                 <i class="menu-arrow"></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/admin/bss-test/add')}}">
+                <i class="menu-icon mdi mdi-account-circle-outline"></i>
+                <span class="menu-title">テスト追加</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
     </ul>
 </nav>

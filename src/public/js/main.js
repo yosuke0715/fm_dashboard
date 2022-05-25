@@ -57,5 +57,30 @@ $(window).ready(function(){
         const target_id = $(this).val();
         location.href = '/admin/bss-score/NG/'+target_id;
     });
+
+    $('input[name=hoge]').on('change', function(){
+        /// チェックされたvalue値を配列として取得
+        var vals = $('input[name=bulk_btn]:checked').map(function(){
+            return $(this).val();
+        }).get();
+        console.log(vals);
+    });
+
+    $('.test-ok').on('click', function(){
+        let target_id = $(this).val();
+
+        const url = "/admin/bss-test/ok/";
+
+        location.href = url + target_id;
+    });
+
+    $('.test-ng').on('click', function(){
+        let target_id = $(this).val();
+
+        const url = "/admin/bss-test/ng/";
+
+        location.href = url + target_id;
+    });
+
 });
 

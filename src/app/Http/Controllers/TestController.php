@@ -15,7 +15,16 @@ class TestController extends Controller
 
     private const TRUE = 0;
     private const FALSE = 1;
+    private const STATUS_DEFAULT = 0;
+    private const STATUS_OK = 1;
+    private const STATUS_NG = 2;
 
+    /**
+     * BSSテストページを表示
+     * @param $message
+     * @param $is_answered
+     * @return View
+     */
     public function showBssTestPage($message = null, $is_answered = self::FALSE)
     {
 
@@ -34,6 +43,11 @@ class TestController extends Controller
             ->with('message', $message);
     }
 
+    /**
+     * BSSテストの解答をDBに追加
+     * @param Request $request
+     * @return View
+     */
     public function addBSSAnswer(Request $request)
     {
         $user_id = Auth::id();
@@ -61,5 +75,31 @@ class TestController extends Controller
         }
 
     }
+    /**
+     * BSSテストの履歴一覧ページを表示
+     * @return View
+     */
+    public function showBSSTestHistory($message = null)
+    {
+        $user_id = Auth::id();
+        $tests = Test::where('user_id', $user_id)->orderby('created_at', 'DESC')->get();
 
+        return view('bss_history')
+            ->with('tests', $tests)
+            ->with('message', $message);
+    }
+
+    /**
+     * BSSテストの再提出一覧ページを表示
+     * @return View
+     */
+    public function showBSSTestResubmit($message = null)
+    {
+        $user_id = Auth::id();
+        $tests = Test::where('user_id', $user_id)->where('status', self::STATUS_NG)->get();
+
+        return view('bss_resubmit')
+            ->with('tests', $tests)
+            ->with('message', $message);
+    }
 }

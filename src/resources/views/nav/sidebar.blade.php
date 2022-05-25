@@ -28,6 +28,20 @@
                 <i class="menu-arrow"></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/bss-test-history')}}">
+                <i class="menu-icon mdi mdi-file-document"></i>
+                <span class="menu-title">BSS【テスト・履歴】</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/bss-test-resubmit')}}">
+                <i class="menu-icon mdi mdi-file-document"></i>
+                <span class="menu-title">BSS【テスト・再提出】</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
         <li class="nav-item nav-category">pages</li>
         <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="" aria-expanded="false" aria-controls="auth">
